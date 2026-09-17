@@ -1,0 +1,81 @@
+tags:
+  - name: Videos
+    description: API for videos blog
+
+paths:
+  /api/videos:
+    get:
+      summary: Get a list of all videos
+      tags: [Videos]
+      responses:
+        200:
+          description: List of all videos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Video'
+
+
+components:
+  schemas:
+    Video:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 0
+        title:
+          type: string
+          example: 'string'
+        author:
+          type: string
+          example: 'string'
+        canBeDownloaded:
+          type: boolean
+          default: false
+          example: false
+        minAgeRestriction:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 18
+          nullable: true
+          default: null
+          example: null
+          description: 'Возрастное ограничение. null означает отсутствие ограничения'
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-09-17T20:59:21.244Z'
+        publicationDate:
+          type: string
+          format: date-time
+          description: 'Дата публикации. По умолчаниюPublicationDate = CreatedAt + 1 день'
+          example: '2026-09-18T20:59:21.244Z'
+        availableResolutions:
+          type: array
+          items:
+            type: string
+            enum:
+              - P144
+              - P240
+              - P360
+              - P480
+              - P720
+              - P1080
+              - P1440
+              - P2160
+          example:
+            - P144
+      required:
+        - id
+        - title
+        - author
+        - canBeDownloaded
+        - createdAt
+        - publicationDate
+        - availableResolutions
+

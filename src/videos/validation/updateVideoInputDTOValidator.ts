@@ -16,57 +16,39 @@ function isExactISOString(value: unknown) {
 }
 
 export const updateVideoInputDTOValidator = (body: updateVideoDTOTypes) => {
-    const {canBeDownloaded, minAgeRestriction, publicationDate} = body
+    const { canBeDownloaded, minAgeRestriction, publicationDate } = body
     const baseErr = createVideoInputDTOValidator(body)
     const updateErr: any[] = []
 
-
-    if (!canBeDownloaded) {
+    // 1. Валидация canBeDownloaded (должен быть строго boolean)
+    if (canBeDownloaded !== undefined && typeof canBeDownloaded !== 'boolean') {
         updateErr.push({
-            message: "canBeDownloaded is required",
+            message: "canBeDownloaded должно быть булевым типом (boolean)",
             field: "canBeDownloaded"
         })
     }
-    if (!minAgeRestriction && canBeDownloaded !== null) {
-        updateErr.push({
-            message: "minAgeRestriction должно быть булевым",
-            field: "minAgeRestriction"
-        })
-    }
-    if (minAgeRestriction && canBeDownloaded !== null && minAgeRestriction < 1) {
-        updateErr.push({
-            message: "minAgeRestriction должно быть больше 0",
-            field: "minAgeRestriction"
-        })
-    }
-    if (minAgeRestriction && canBeDownloaded !== null && minAgeRestriction > 18) {
-        updateErr.push({
-            message: "minAgeRestriction должно быть не больше 18",
-            field: "minAgeRestriction"
-        })
-    }
-    if (!publicationDate) {
-        updateErr.push({
-            message: "publicationDate is required",
-            field: "publicationDate"
-        })
-    }
-    if (!publicationDate) {
-        updateErr.push({
-            message: "publicationDate is required",
-            field: "publicationDate"
-        })
-    }
-    if (publicationDate && !isExactISOString(publicationDate)) {
-        updateErr.push({
-            message: "publicationDate не соответствует формату",
-            field: "publicationDate"
-        })
+
+    // 2. Валидация minAgeRestriction (число от 1 до 18 или null)
+    if (minAgeRestriction !== undefined && minAgeRestriction !== null) {
+        if (typeof minAgeRestriction !== 'number' || minAgeRestriction < 1 || minAgeRestriction > 18) {
+            updateErr.push({
+                message: "minAgeRestriction должно быть числом от 1 до 18",
+                field: "minAgeRestriction"
+            })
+        }
     }
 
-//todo
+    // 3. Валидация publicationDate (строка формата ISO)
+    if (publicationDate !== undefined) {
+        if (typeof publicationDate !== 'string' || !isExactISOString(publicationDate)) {
+            updateErr.push({
+                message: "publicationDate должно быть строкой формата ISO",
+                field: "publicationDate"
+            })
+        }
+    }
+
     return [...baseErr, ...updateErr]
-
 }
 
 

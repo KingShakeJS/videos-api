@@ -74,6 +74,7 @@ videosRouter
 
         if (idErr) {
             res.sendStatus(HttpStatus.NotFound)
+            return
         }
         if (!idErr && updateInputErr.length === 0) {
             const findVideo = inMemoryDb.videos.find(video => video.id === +id)

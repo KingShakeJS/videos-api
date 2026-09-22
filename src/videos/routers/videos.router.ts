@@ -21,17 +21,22 @@ videosRouter
         const errorsMessages = createVideoInputDTOValidator(body)
         if (errorsMessages.length === 0) {
             const lastVideoId = inMemoryDb.videos.at(-1)?.id
+            const dateNow = new Date();
+
+// Создаем копию даты и прибавляем к ней 1 день
+            const publicationDate = new Date(dateNow);
+            publicationDate.setDate(dateNow.getDate() + 1);
+
             const newVideo: VideoType = {
                 id: lastVideoId ? lastVideoId + 1 : 1,
                 title: body.title,
                 author: body.author,
                 canBeDownloaded: false,
                 minAgeRestriction: null,
-                createdAt: new Date().toISOString(),
-                publicationDate: new Date().toISOString(),
+                createdAt: dateNow.toISOString(),
+                publicationDate: publicationDate.toISOString(), // Теперь здесь дата на день больше
                 availableResolutions: body.availableResolutions,
-
-            }
+            };
             inMemoryDb.videos.push(newVideo)
             res.status(HttpStatus.Created).json(newVideo)
         } else {

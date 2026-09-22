@@ -1,6 +1,6 @@
-import {availableResolutionVariant, VideoDTOType} from "../types/video";
+import {availableResolutionVariant, createVideoDTOType} from "../types/video";
 
-export const createPostInputDTOValidator = (body: VideoDTOType) => {
+export const createVideoInputDTOValidator = (body: createVideoDTOType) => {
     const errorsMessages: any[] = [
         // {
         //     message: "string",

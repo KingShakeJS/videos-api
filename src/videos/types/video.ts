@@ -1,5 +1,3 @@
-
-
 export type VideoType = {
     id: number;
     title: string;
@@ -12,7 +10,7 @@ export type VideoType = {
 };
 
 // type availableResolutionType = "P144" | "P240" | "P360" | "P480" | "P720" | "P1080" | "P1440" | "P2160"
- export const availableResolutionVariant= {
+export const availableResolutionVariant = {
     144: "P144",
     240: "P240",
     360: "P360",
@@ -27,9 +25,14 @@ export type VideoType = {
 export type availableResolutionType =
     typeof availableResolutionVariant[keyof typeof availableResolutionVariant];
 
-export type VideoDTOType = {
+export type createVideoDTOType = {
     title: string,
     author: string,
     availableResolutions: availableResolutionType[]
 }
+export type updateVideoDTOTypes = {
+    canBeDownloaded: boolean
+    minAgeRestriction: number | null;
+    publicationDate: string
+} &  createVideoDTOType
 

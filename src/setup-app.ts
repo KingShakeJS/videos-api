@@ -1,8 +1,8 @@
 import express, {Express} from "express";
 import {HttpStatus} from "./core/types/http-statuses";
-import {inMemoryDb} from "./db/in-memory.db";
 import {videosRouter} from "./videos/routers/videos.router";
 import {setupSwagger} from "./core/swagger/setup-swagger";
+import {testingRouter} from "./testing/routers /testing.router";
 
 
 export const setupApp = (app: Express) => {
@@ -14,6 +14,7 @@ export const setupApp = (app: Express) => {
 
 
     app.use("/api/videos", videosRouter)
+    app.use("/api/testing", testingRouter); // URL теперь начинается с /api/
     setupSwagger(app);
     return app;
 };

@@ -42,7 +42,7 @@ videosRouter
         } else {
             res.status(HttpStatus.BadRequest).json({
                 "errorsMessages": [
-                    errorsMessages[0]
+                    ...errorsMessages
                 ]
             })
         }
@@ -91,8 +91,8 @@ videosRouter
             }
         } else {
             res.status(HttpStatus.BadRequest).json({
-                "errorsMessages": [
-                    ...updateInputErr
+                errorsMessages: [
+                    updateInputErr[0]
                 ]
             })
         }

@@ -92,7 +92,7 @@ videosRouter
         } else {
             res.status(HttpStatus.BadRequest).json({
                 errorsMessages: [
-                    updateInputErr[0]
+                    ...updateInputErr
                 ]
             })
         }

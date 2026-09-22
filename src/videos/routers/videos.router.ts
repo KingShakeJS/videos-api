@@ -4,6 +4,7 @@ import {inMemoryDb} from "../../db/in-memory.db";
 import type {Request, Response} from "express";
 import {VideoDTOType, VideoType} from "../types/video";
 import {createPostInputDTOValidator} from "../validation/createPostInputDTOValidator";
+import {idValidator} from "../validation/idValidator";
 
 
 export const videosRouter = Router({});
@@ -40,6 +41,23 @@ videosRouter
             })
         }
     })
+    .get('/:id', (req, res) => {
+        const {id} = req.params;
+
+        const err = idValidator(id)
+
+        if (!err) {
+            const findVideo = inMemoryDb.videos.find(video => video.id === +id)
+            if (findVideo) {
+                res.status(HttpStatus.Ok).json(findVideo)
+            } else {
+                res.sendStatus(HttpStatus.NotFound)
+            }
+
+        } else {
+            res.sendStatus(HttpStatus.NotFound)
+        }
 
 
+    })
 

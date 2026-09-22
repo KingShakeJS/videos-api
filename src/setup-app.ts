@@ -5,7 +5,12 @@ import {setupSwagger} from "./core/swagger/setup-swagger";
 import {testingRouter} from "./testing/routers /testing.router";
 
 
+
+
+
+
 export const setupApp = (app: Express) => {
+
     app.use(express.json());
     app.get("/", (req, res) => {
         res.status(HttpStatus.Ok).send("дороу");
@@ -13,8 +18,8 @@ export const setupApp = (app: Express) => {
     })
 
 
-    app.use("/api/videos", videosRouter)
-    app.use("/api/testing", testingRouter); // URL теперь начинается с /api/
+    app.use("/videos", videosRouter)
+    app.use("/testing", testingRouter); // URL теперь начинается с /api/
     setupSwagger(app);
     return app;
 };

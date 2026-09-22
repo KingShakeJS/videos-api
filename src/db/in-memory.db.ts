@@ -1,4 +1,4 @@
-import {VideoType} from "../videos/types /video";
+import {VideoType} from "../videos/types/video";
 
 export const inMemoryDb = {
     videos: <VideoType[]>[

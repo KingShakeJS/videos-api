@@ -2,7 +2,7 @@ import express, {Express} from "express";
 import {HttpStatus} from "./core/types/http-statuses";
 import {videosRouter} from "./videos/routers/videos.router";
 import {setupSwagger} from "./core/swagger/setup-swagger";
-import {testingRouter} from "./testing/routers /testing.router";
+import {testingRouter} from "./testing/routers/testing.router";
 
 
 
